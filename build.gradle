@@ -38,7 +38,6 @@ spotless {
     antlr4 {
         target 'grammar/**/*.g4'
         antlr4Formatter()
-        licenseHeader '/* Public Domain (C) $YEAR */'
     }
 }
 

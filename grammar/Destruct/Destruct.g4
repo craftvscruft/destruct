@@ -1,4 +1,24 @@
-/* Public Domain (C) 2023 */
+/* Public Domain
+
+Destruct: Ray Myers, Mender.AI
+
+Based on ES6 Destructuring.
+Grammar Derived from antlr/examples-v4 JSON5.g4 which derived from JSON.g4
+https://github.com/antlr/grammars-v4
+https://json5.org
+http://json.org
+
+Example:
+
+```
+expr : { key: [a,...red], ... } => {f:5, ...a, g:7}
+     | { key: [a,...red], ... } => {f:5, ...a, g:7}
+;
+expr: { key: [a,...red], ... } => {f:5, ...a, g:7};
+
+edgeStatement.fromIds.*: {text} => text;
+```
+*/
 grammar Destruct;
 
 start
