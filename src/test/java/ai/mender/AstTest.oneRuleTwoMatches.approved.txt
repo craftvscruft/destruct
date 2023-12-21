@@ -1,0 +1,59 @@
+[
+  {
+    "target": "start",
+    "match": [
+      {
+        "left": {
+          "msg": "top",
+          "steps": [
+            {
+              "msg": "pair",
+              "steps": []
+            },
+            {
+              "msg": "take key 'statement' store to 'statement' ",
+              "steps": []
+            },
+            {
+              "msg": "pair",
+              "steps": []
+            },
+            {
+              "msg": "take key 'moreStatements' match 'null'",
+              "steps": []
+            }
+          ]
+        },
+        "right": {
+          "steps": []
+        }
+      },
+      {
+        "left": {
+          "msg": "top",
+          "steps": [
+            {
+              "msg": "pair",
+              "steps": []
+            },
+            {
+              "msg": "take key 'statement' store to 'statement' ",
+              "steps": []
+            },
+            {
+              "msg": "pair",
+              "steps": []
+            },
+            {
+              "msg": "take key 'moreStatements' store to 'moreStatements' ",
+              "steps": []
+            }
+          ]
+        },
+        "right": {
+          "steps": []
+        }
+      }
+    ]
+  }
+]

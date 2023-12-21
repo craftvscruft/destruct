@@ -29,13 +29,13 @@ public class DestructBaseListener implements DestructListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterRule(DestructParser.RuleContext ctx) { }
+	@Override public void enterRuleStatement(DestructParser.RuleStatementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitRule(DestructParser.RuleContext ctx) { }
+	@Override public void exitRuleStatement(DestructParser.RuleStatementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -72,6 +72,18 @@ public class DestructBaseListener implements DestructListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitMatch(DestructParser.MatchContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterTransformed(DestructParser.TransformedContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitTransformed(DestructParser.TransformedContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

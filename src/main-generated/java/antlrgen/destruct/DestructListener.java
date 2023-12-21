@@ -18,15 +18,15 @@ public interface DestructListener extends ParseTreeListener {
 	 */
 	void exitStart(DestructParser.StartContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link DestructParser#rule}.
+	 * Enter a parse tree produced by {@link DestructParser#ruleStatement}.
 	 * @param ctx the parse tree
 	 */
-	void enterRule(DestructParser.RuleContext ctx);
+	void enterRuleStatement(DestructParser.RuleStatementContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link DestructParser#rule}.
+	 * Exit a parse tree produced by {@link DestructParser#ruleStatement}.
 	 * @param ctx the parse tree
 	 */
-	void exitRule(DestructParser.RuleContext ctx);
+	void exitRuleStatement(DestructParser.RuleStatementContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link DestructParser#ruleTarget}.
 	 * @param ctx the parse tree
@@ -57,6 +57,16 @@ public interface DestructListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitMatch(DestructParser.MatchContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link DestructParser#transformed}.
+	 * @param ctx the parse tree
+	 */
+	void enterTransformed(DestructParser.TransformedContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link DestructParser#transformed}.
+	 * @param ctx the parse tree
+	 */
+	void exitTransformed(DestructParser.TransformedContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link DestructParser#destruct}.
 	 * @param ctx the parse tree

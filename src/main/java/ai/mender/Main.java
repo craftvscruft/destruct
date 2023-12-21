@@ -15,26 +15,29 @@ public class Main {
         );
         DestructListener listener = new DestructListener();
         parse(inputStream, listener, true);
-
-
+        System.out.println(
+                listener.rules.toString()
+                        .replace("Rule[", "\n  Rule[")
+                        .replace("Match[", "\n    Match[")
+                        .replace("DestructStep[", "\n      DestructStep[")
+                        .replace("Transformed[", "\n    Transformed["));
+        System.out.println(Ast.toJson(listener.rules));
     }
 
-    private static void parse(CharStream inputStream, DestructListener listener, boolean throwOnError) {
+    static void parse(CharStream inputStream, DestructListener listener, boolean throwOnError) {
         var lexer = new DestructLexer(inputStream);
         if (throwOnError) {
             lexer.addErrorListener(ThrowingErrorListener.INSTANCE);
         }
         CommonTokenStream commonTokenStream = new CommonTokenStream(lexer);
         var parser = new DestructParser(commonTokenStream);
-        parser.setBuildParseTree(false);
-
+        parser.setBuildParseTree(true);
+        listener.setParser(parser);
         parser.addParseListener(listener);
-
 
         if (throwOnError) {
             parser.addErrorListener(ThrowingErrorListener.INSTANCE);
         }
-
 
         parser.start();
     }

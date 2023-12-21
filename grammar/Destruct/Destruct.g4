@@ -11,21 +11,21 @@ http://json.org
 Example:
 
 ```
-expr : { key: [a,...red], ... } => {f:5, ...a, g:7}
-     | { key: [a,...red], ... } => {f:5, ...a, g:7}
-;
-expr: { key: [a,...red], ... } => {f:5, ...a, g:7};
+rule1 : { key: [a,...red], ... } => {f:5, ...a, g:7}
+      | { key: [a,...red], ... } => {f:5, ...a, g:7};
 
-edgeStatement.fromIds.*: {text} => text;
+rule1 : { key: [a,...red], ... } => {f:5, ...a, g:7};
+
+rule2.a.* : {text} => text;
 ```
 */
 grammar Destruct;
 
 start
-   : rule*
+   : ruleStatement*
    ;
 
-rule
+ruleStatement
    : ruleTarget ':' match ('|' match)* ';'
    ;
 
@@ -39,7 +39,11 @@ targetSpecifier
    ;
 
 match
-   : destruct '=>' value
+   : destruct '=>' transformed
+   ;
+
+transformed
+   : value
    ;
 
 destruct
