@@ -1,4 +1,0 @@
-grammar Sample;
-
-a   : 'a'
-    ;

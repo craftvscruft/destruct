@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'application'
+    id "com.diffplug.spotless" version "6.23.3"
 }
 
 group = 'ai.mender'
@@ -31,6 +32,14 @@ dependencies {
 
 test {
     useJUnitPlatform()
+}
+
+spotless {
+    antlr4 {
+        target 'grammar/**/*.g4'
+        antlr4Formatter()
+        licenseHeader '/* Public Domain (C) $YEAR */'
+    }
 }
 
 import org.apache.tools.ant.filters.ConcatFilter
@@ -94,6 +103,6 @@ tasks.addRule("Pattern: generateParser<Lang>") { String taskName ->
 }
 
 tasks.register('generateParsers') {
-    dependsOn 'generateParserSample'
+    dependsOn 'generateParserDestruct'
 }
 
