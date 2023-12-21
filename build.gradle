@@ -10,17 +10,90 @@ repositories {
     mavenCentral()
 }
 
+configurations {
+    antlrGen
+}
+
+sourceSets.main.java.srcDirs = ['src/main/java','src/main-generated/java']
+
 dependencies {
     implementation "org.antlr:antlr4-runtime:${property('antlr.version')}"
     implementation 'org.slf4j:slf4j-api:2.0.7'
     implementation 'ch.qos.logback:logback-classic:1.4.11'
     implementation 'info.picocli:picocli:4.7.5'
     annotationProcessor 'info.picocli:picocli-codegen:4.7.5'
+    antlrGen "org.antlr:antlr4:${property('antlr.version')}"
     testImplementation platform('org.junit:junit-bom:5.9.1')
     testImplementation 'org.junit.jupiter:junit-jupiter'
     testImplementation 'com.approvaltests:approvaltests:18.7.1'
+
 }
 
 test {
     useJUnitPlatform()
 }
+
+import org.apache.tools.ant.filters.ConcatFilter
+tasks.addRule("Pattern: copyParserBase<Lang>") { String taskName ->
+
+    if (taskName.startsWith("copyParserBase")) {
+        def lang = taskName - 'copyParserBase'
+        def langLower = lang.toLowerCase()
+        def basePkg = providers.gradleProperty("untangler.antlrgen.basePackage").get()
+        def pkg = "${basePkg}.${langLower}"
+        def pkgDir = pkg.replaceAll(/\./, "/")
+        def genSrcPath = providers.gradleProperty('untangler.antlrgen.outpath').get()
+        def target = "Java"
+        def packagePrefixFile = "${buildDir}/tmp/${lang}-package.txt"
+
+        task(taskName, type: Copy) {
+            doFirst{
+                file(packagePrefixFile).setText("package $pkg;\n")
+            }
+            from("../vendor/${lang}/${target}/")
+            into("$genSrcPath/$pkgDir/")
+            include('*.java')
+
+            filter(ConcatFilter, prepend: file(packagePrefixFile))
+        }
+    }
+}
+
+tasks.addRule("Pattern: generateParser<Lang>") { String taskName ->
+    if (taskName.startsWith("generateParser")) {
+        def lang = taskName - "generateParser"
+        def langLower = lang.toLowerCase()
+        def basePkg = providers.gradleProperty("antlrgen.basePackage").get()
+        def pkg = "${basePkg}.${langLower}"
+        def pkgDir = pkg.replaceAll(/\./, "/")
+        def genSrcPath = providers.gradleProperty('antlrgen.outpath').get()
+        def target = "Java"
+        def grammarFile = "${lang}.g4"
+        def parserName = "${lang}Parser"
+        def lexerName = "${lang}Lexer"
+        task(taskName, type: JavaExec) {
+            inputs.file("grammar/${lang}/${grammarFile}")
+            outputs.file("${genSrcPath}/${pkgDir}/${parserName}.java")
+            outputs.file("${genSrcPath}/${pkgDir}/${lexerName}.java")
+            outputs.file("${genSrcPath}/${pkgDir}/${parserName}.interp")
+            outputs.file("${genSrcPath}/${pkgDir}/${parserName}.tokens")
+            main = 'org.antlr.v4.Tool'
+            classpath = files(configurations.antlrGen.resolvedConfiguration.resolvedArtifacts*.file)
+            args = [
+                    "-Dlanguage=${target}",
+                    grammarFile,
+                    '-o',
+                    "../../${genSrcPath}/${pkgDir}/",
+                    "-package",
+                    pkg
+            ]
+
+            workingDir = "grammar/$lang"
+        }
+    }
+}
+
+tasks.register('generateParsers') {
+    dependsOn 'generateParserSample'
+}
+
