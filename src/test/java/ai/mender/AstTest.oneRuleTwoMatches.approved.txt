@@ -4,18 +4,10 @@
     "match": [
       {
         "left": {
-          "msg": "top",
+          "msg": "root",
           "steps": [
             {
-              "msg": "pair",
-              "steps": []
-            },
-            {
               "msg": "take key 'statement' store to 'statement' ",
-              "steps": []
-            },
-            {
-              "msg": "pair",
               "steps": []
             },
             {
@@ -30,18 +22,10 @@
       },
       {
         "left": {
-          "msg": "top",
+          "msg": "root",
           "steps": [
             {
-              "msg": "pair",
-              "steps": []
-            },
-            {
               "msg": "take key 'statement' store to 'statement' ",
-              "steps": []
-            },
-            {
-              "msg": "pair",
               "steps": []
             },
             {

@@ -40,7 +40,7 @@ public class DestructListener extends DestructBaseListener
 
     @Override
     public void enterRuleStatement(DestructParser.RuleStatementContext ctx) {
-        System.out.println("rule " + getText(ctx));
+//        System.out.println("rule " + getText(ctx));
         ruleMatches = new ArrayList<>();
     }
     @Override
@@ -91,7 +91,6 @@ public class DestructListener extends DestructBaseListener
 
     @Override
     public void exitDestructPair(DestructParser.DestructPairContext ctx) {
-
         Ast.DestructStep step = this.destructStepStack.peek();
         String keyText = getText(ctx.key());
         String msg = "take key '" + keyText + "' ";

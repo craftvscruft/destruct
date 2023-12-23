@@ -123,6 +123,11 @@ public class DestructParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DestructListener ) ((DestructListener)listener).exitStart(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof DestructVisitor ) return ((DestructVisitor<? extends T>)visitor).visitStart(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final StartContext start() throws RecognitionException {
@@ -181,6 +186,11 @@ public class DestructParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DestructListener ) ((DestructListener)listener).exitRuleStatement(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof DestructVisitor ) return ((DestructVisitor<? extends T>)visitor).visitRuleStatement(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -249,6 +259,11 @@ public class DestructParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DestructListener ) ((DestructListener)listener).exitRuleTarget(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof DestructVisitor ) return ((DestructVisitor<? extends T>)visitor).visitRuleTarget(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final RuleTargetContext ruleTarget() throws RecognitionException {
@@ -301,6 +316,11 @@ public class DestructParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DestructListener ) ((DestructListener)listener).exitTargetSpecifier(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof DestructVisitor ) return ((DestructVisitor<? extends T>)visitor).visitTargetSpecifier(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -362,6 +382,11 @@ public class DestructParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DestructListener ) ((DestructListener)listener).exitMatch(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof DestructVisitor ) return ((DestructVisitor<? extends T>)visitor).visitMatch(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final MatchContext match() throws RecognitionException {
@@ -405,6 +430,11 @@ public class DestructParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DestructListener ) ((DestructListener)listener).exitTransformed(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof DestructVisitor ) return ((DestructVisitor<? extends T>)visitor).visitTransformed(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -451,6 +481,11 @@ public class DestructParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DestructListener ) ((DestructListener)listener).exitDestruct(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof DestructVisitor ) return ((DestructVisitor<? extends T>)visitor).visitDestruct(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -551,6 +586,11 @@ public class DestructParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DestructListener ) ((DestructListener)listener).exitDestructRest(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof DestructVisitor ) return ((DestructVisitor<? extends T>)visitor).visitDestructRest(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final DestructRestContext destructRest() throws RecognitionException {
@@ -602,6 +642,11 @@ public class DestructParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DestructListener ) ((DestructListener)listener).exitRest(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof DestructVisitor ) return ((DestructVisitor<? extends T>)visitor).visitRest(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final RestContext rest() throws RecognitionException {
@@ -646,6 +691,11 @@ public class DestructParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DestructListener ) ((DestructListener)listener).exitObj(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof DestructVisitor ) return ((DestructVisitor<? extends T>)visitor).visitObj(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -742,6 +792,11 @@ public class DestructParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DestructListener ) ((DestructListener)listener).exitDestructPair(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof DestructVisitor ) return ((DestructVisitor<? extends T>)visitor).visitDestructPair(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final DestructPairContext destructPair() throws RecognitionException {
@@ -822,6 +877,11 @@ public class DestructParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DestructListener ) ((DestructListener)listener).exitDestructDefault(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof DestructVisitor ) return ((DestructVisitor<? extends T>)visitor).visitDestructDefault(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final DestructDefaultContext destructDefault() throws RecognitionException {
@@ -871,6 +931,11 @@ public class DestructParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DestructListener ) ((DestructListener)listener).exitPair(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof DestructVisitor ) return ((DestructVisitor<? extends T>)visitor).visitPair(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -944,6 +1009,11 @@ public class DestructParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DestructListener ) ((DestructListener)listener).exitKey(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof DestructVisitor ) return ((DestructVisitor<? extends T>)visitor).visitKey(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final KeyContext key() throws RecognitionException {
@@ -1001,6 +1071,11 @@ public class DestructParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DestructListener ) ((DestructListener)listener).exitDestructValue(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof DestructVisitor ) return ((DestructVisitor<? extends T>)visitor).visitDestructValue(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -1096,6 +1171,11 @@ public class DestructParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DestructListener ) ((DestructListener)listener).exitValue(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof DestructVisitor ) return ((DestructVisitor<? extends T>)visitor).visitValue(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final ValueContext value() throws RecognitionException {
@@ -1189,6 +1269,11 @@ public class DestructParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DestructListener ) ((DestructListener)listener).exitDestructArr(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof DestructVisitor ) return ((DestructVisitor<? extends T>)visitor).visitDestructArr(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -1302,6 +1387,11 @@ public class DestructParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DestructListener ) ((DestructListener)listener).exitDestructArrValue(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof DestructVisitor ) return ((DestructVisitor<? extends T>)visitor).visitDestructArrValue(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final DestructArrValueContext destructArrValue() throws RecognitionException {
@@ -1366,6 +1456,11 @@ public class DestructParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DestructListener ) ((DestructListener)listener).exitArr(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof DestructVisitor ) return ((DestructVisitor<? extends T>)visitor).visitArr(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -1459,6 +1554,11 @@ public class DestructParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DestructListener ) ((DestructListener)listener).exitArrValue(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof DestructVisitor ) return ((DestructVisitor<? extends T>)visitor).visitArrValue(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final ArrValueContext arrValue() throws RecognitionException {
@@ -1520,6 +1620,11 @@ public class DestructParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DestructListener ) ((DestructListener)listener).exitNumber(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof DestructVisitor ) return ((DestructVisitor<? extends T>)visitor).visitNumber(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 

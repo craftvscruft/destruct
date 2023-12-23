@@ -11,6 +11,10 @@ repositories {
     mavenCentral()
 }
 
+application {
+    mainClass = 'ai.mender.CliMain'
+}
+
 configurations {
     antlrGen
 }
@@ -81,14 +85,9 @@ tasks.addRule("Pattern: generateParser<Lang>") { String taskName ->
         def genSrcPath = providers.gradleProperty('antlrgen.outpath').get()
         def target = "Java"
         def grammarFile = "${lang}.g4"
-        def parserName = "${lang}Parser"
-        def lexerName = "${lang}Lexer"
         task(taskName, type: JavaExec) {
             inputs.file("grammar/${lang}/${grammarFile}")
-            outputs.file("${genSrcPath}/${pkgDir}/${parserName}.java")
-            outputs.file("${genSrcPath}/${pkgDir}/${lexerName}.java")
-            outputs.file("${genSrcPath}/${pkgDir}/${parserName}.interp")
-            outputs.file("${genSrcPath}/${pkgDir}/${parserName}.tokens")
+            outputs.dir("${genSrcPath}/${pkgDir}")
             main = 'org.antlr.v4.Tool'
             classpath = files(configurations.antlrGen.resolvedConfiguration.resolvedArtifacts*.file)
             args = [
@@ -97,7 +96,8 @@ tasks.addRule("Pattern: generateParser<Lang>") { String taskName ->
                     '-o',
                     "../../${genSrcPath}/${pkgDir}/",
                     "-package",
-                    pkg
+                    pkg,
+                    "-visitor"
             ]
 
             workingDir = "grammar/$lang"

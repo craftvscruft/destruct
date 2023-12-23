@@ -6,39 +6,46 @@ import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 
-public class Main {
+import java.util.List;
+
+public class Harness {
     public static void main(String[] args) {
-        CharStream inputStream = CharStreams.fromString("""
+        String input = """
                 start : { statement, moreStatements: null } => {statements}
                       | { statement, moreStatements } => {statements: [statement, ...moreStatements]};
-                """
-        );
-        DestructListener listener = new DestructListener();
-        parse(inputStream, listener, true);
+                """;
+        List<Ast.Rule> rules = parseStringToAst(input);
+        System.out.println(Ast.toJson(rules));
         System.out.println(
-                listener.rules.toString()
+                rules.toString()
                         .replace("Rule[", "\n  Rule[")
                         .replace("Match[", "\n    Match[")
                         .replace("DestructStep[", "\n      DestructStep[")
                         .replace("Transformed[", "\n    Transformed["));
-        System.out.println(Ast.toJson(listener.rules));
     }
 
-    static void parse(CharStream inputStream, DestructListener listener, boolean throwOnError) {
+    static List<Ast.Rule> parseStringToAst(String input) {
+        CharStream inputStream = CharStreams.fromString(input);
+        return parse(inputStream, true).rules();
+    }
+
+
+    static Ast.Start parse(CharStream inputStream, boolean throwOnError) {
+
         var lexer = new DestructLexer(inputStream);
         if (throwOnError) {
             lexer.addErrorListener(ThrowingErrorListener.INSTANCE);
         }
         CommonTokenStream commonTokenStream = new CommonTokenStream(lexer);
         var parser = new DestructParser(commonTokenStream);
-        parser.setBuildParseTree(true);
-        listener.setParser(parser);
-        parser.addParseListener(listener);
+        DestructVisitor visitor = new DestructVisitor(parser);
 
         if (throwOnError) {
             parser.addErrorListener(ThrowingErrorListener.INSTANCE);
         }
 
-        parser.start();
+        DestructParser.StartContext program = parser.start();
+
+        return visitor.visitStart(program);
     }
 }
